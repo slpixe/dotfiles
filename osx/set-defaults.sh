@@ -487,7 +487,7 @@ defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 # Disable Spotlight indexing for any volume that gets mounted and has not yet
 # been indexed before.
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+# sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
 # 	MENU_DEFINITION
@@ -496,35 +496,35 @@ sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Vol
 # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
 # 	MENU_WEBSEARCH             (send search queries to Apple)
 # 	MENU_OTHER
-defaults write com.apple.spotlight orderedItems -array \
-	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-	'{"enabled" = 1;"name" = "PDF";}' \
-	'{"enabled" = 1;"name" = "FONTS";}' \
-	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
-	'{"enabled" = 0;"name" = "MESSAGES";}' \
-	'{"enabled" = 0;"name" = "CONTACT";}' \
-	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-	'{"enabled" = 0;"name" = "IMAGES";}' \
-	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
-	'{"enabled" = 0;"name" = "MUSIC";}' \
-	'{"enabled" = 0;"name" = "MOVIES";}' \
-	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-	'{"enabled" = 0;"name" = "SOURCE";}' \
-	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
-	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
-	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
-	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
-	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
-	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-# Load new settings before rebuilding the index
-killall mds > /dev/null 2>&1
-# Make sure indexing is enabled for the main volume
-sudo mdutil -i on / > /dev/null
-# Rebuild the index from scratch
-sudo mdutil -E / > /dev/null
+# defaults write com.apple.spotlight orderedItems -array \
+# 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
+# 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+# 	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
+# 	'{"enabled" = 1;"name" = "PDF";}' \
+# 	'{"enabled" = 1;"name" = "FONTS";}' \
+# 	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
+# 	'{"enabled" = 0;"name" = "MESSAGES";}' \
+# 	'{"enabled" = 0;"name" = "CONTACT";}' \
+# 	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+# 	'{"enabled" = 0;"name" = "IMAGES";}' \
+# 	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
+# 	'{"enabled" = 0;"name" = "MUSIC";}' \
+# 	'{"enabled" = 0;"name" = "MOVIES";}' \
+# 	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+# 	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+# 	'{"enabled" = 0;"name" = "SOURCE";}' \
+# 	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
+# 	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
+# 	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
+# 	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
+# 	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+# 	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+# # Load new settings before rebuilding the index
+# killall mds > /dev/null 2>&1
+# # Make sure indexing is enabled for the main volume
+# sudo mdutil -i on / > /dev/null
+# # Rebuild the index from scratch
+# sudo mdutil -E / > /dev/null
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
@@ -534,51 +534,51 @@ sudo mdutil -E / > /dev/null
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the Solarized Dark theme by default in Terminal.app
-osascript <<EOD
+# osascript <<EOD
 
-tell application "Terminal"
+# tell application "Terminal"
 
-	local allOpenedWindows
-	local initialOpenedWindows
-	local windowID
-	set themeName to "Solarized Dark xterm-256color"
+# 	local allOpenedWindows
+# 	local initialOpenedWindows
+# 	local windowID
+# 	set themeName to "Solarized Dark xterm-256color"
 
-	(* Store the IDs of all the open terminal windows. *)
-	set initialOpenedWindows to id of every window
+# 	(* Store the IDs of all the open terminal windows. *)
+# 	set initialOpenedWindows to id of every window
 
-	(* Open the custom theme so that it gets added to the list
-	   of available terminal themes (note: this will open two
-	   additional terminal windows). *)
-	do shell script "open '$HOME/init/" & themeName & ".terminal'"
+# 	(* Open the custom theme so that it gets added to the list
+# 	   of available terminal themes (note: this will open two
+# 	   additional terminal windows). *)
+# 	do shell script "open '$HOME/init/" & themeName & ".terminal'"
 
-	(* Wait a little bit to ensure that the custom theme is added. *)
-	delay 1
+# 	(* Wait a little bit to ensure that the custom theme is added. *)
+# 	delay 1
 
-	(* Set the custom theme as the default terminal theme. *)
-	set default settings to settings set themeName
+# 	(* Set the custom theme as the default terminal theme. *)
+# 	set default settings to settings set themeName
 
-	(* Get the IDs of all the currently opened terminal windows. *)
-	set allOpenedWindows to id of every window
+# 	(* Get the IDs of all the currently opened terminal windows. *)
+# 	set allOpenedWindows to id of every window
 
-	repeat with windowID in allOpenedWindows
+# 	repeat with windowID in allOpenedWindows
 
-		(* Close the additional windows that were opened in order
-		   to add the custom theme to the list of terminal themes. *)
-		if initialOpenedWindows does not contain windowID then
-			close (every window whose id is windowID)
+# 		(* Close the additional windows that were opened in order
+# 		   to add the custom theme to the list of terminal themes. *)
+# 		if initialOpenedWindows does not contain windowID then
+# 			close (every window whose id is windowID)
 
-		(* Change the theme for the initial opened terminal windows
-		   to remove the need to close them in order for the custom
-		   theme to be applied. *)
-		else
-			set current settings of tabs of (every window whose id is windowID) to settings set themeName
-		end if
+# 		(* Change the theme for the initial opened terminal windows
+# 		   to remove the need to close them in order for the custom
+# 		   theme to be applied. *)
+# 		else
+# 			set current settings of tabs of (every window whose id is windowID) to settings set themeName
+# 		end if
 
-	end repeat
+# 	end repeat
 
-end tell
+# end tell
 
-EOD
+# EOD
 
 # Enable “focus follows mouse” for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
@@ -592,8 +592,8 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 # Disable the annoying line marks
 defaults write com.apple.Terminal ShowLineMarks -int 0
 
-# Install the Solarized Dark theme for iTerm
-open "${HOME}/init/Solarized Dark.itermcolors"
+# # Install the Solarized Dark theme for iTerm
+# open "${HOME}/init/Solarized Dark.itermcolors"
 
 # Don’t display the annoying prompt when quitting iTerm
 # defaults write com.googlecode.iterm2 PromptOnQuit -bool false
@@ -706,6 +706,7 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 # Kill affected applications                                                  #
 ###############################################################################
 # "Google Chrome" \
+# "Terminal" \
 
 for app in "Activity Monitor" \
 	"Address Book" \
@@ -721,7 +722,6 @@ for app in "Activity Monitor" \
 	"Safari" \
 	"SizeUp" \
 	"SystemUIServer" \
-	"Terminal" \
 	"iCal"; do
 	killall "${app}" &> /dev/null
 done
