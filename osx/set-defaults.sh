@@ -92,7 +92,7 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
