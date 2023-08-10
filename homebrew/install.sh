@@ -48,7 +48,8 @@ if ! type "brew" >/dev/null 2>&1; then
     fi
 
     # Load Homebrew environment variables
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    # eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval "$($brew_path shellenv)"
 
 else
     echo "Homebrew is already installed."
