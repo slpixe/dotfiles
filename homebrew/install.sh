@@ -32,6 +32,8 @@ if ! type "brew" >/dev/null 2>&1; then
         echo "Homebrew is already in your PATH."
     fi
 
+    eval "$(/opt/homebre/bin/brew shellenv)"
+
     exit 1
 fi
 
