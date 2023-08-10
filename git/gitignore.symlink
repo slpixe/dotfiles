@@ -3,14 +3,3 @@
 *.swp
 .svn
 .idea
-/library/Zend/
-*.log
-/uploads
-/public/crops/
-bower_components/
-._*
-.project
-atlassian-ide-plugin.xml
-*.sql
-/public/images/captcha/*.png
-__pycache__

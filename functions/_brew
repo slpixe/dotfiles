@@ -76,4 +76,3 @@ case "$words[1]" in
   bundle)
     _describe 'values' _bundle_arguments
   ;;
-esac
