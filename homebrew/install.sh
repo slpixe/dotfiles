@@ -1,11 +1,11 @@
 #!/bin/bash
 
+# Check if Homebrew is installed
 if ! type "brew" >/dev/null 2>&1; then
-    echo "Homebrew not found, install it first"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "Homebrew not found, installing..."
 
-    # Determine the Homebrew installation path
-    brew_path=$(which brew)
+    # Install Homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # Determine the user's default shell
     user_shell=$(basename "$SHELL")
@@ -24,7 +24,8 @@ if ! type "brew" >/dev/null 2>&1; then
             ;;
     esac
 
-    # Add Homebrew to PATH if it's not already present
+    # Add Homebrew to PATH
+    brew_path=$(which brew)
     if [[ ":$PATH:" != *":$brew_path:"* ]]; then
         echo "export PATH=$brew_path:\$PATH" >> "$HOME/$shell_config_file"
         echo "Homebrew added to PATH in $shell_config_file. Restart your shell to apply the changes."
@@ -32,9 +33,12 @@ if ! type "brew" >/dev/null 2>&1; then
         echo "Homebrew is already in your PATH."
     fi
 
+    # Load Homebrew environment variables
     eval "$(/opt/homebrew/bin/brew shellenv)"
 
-    exit 1
-fi
+else
+    echo "Homebrew is already installed."
 
-brew bundle install --file homebrew/Brewfile
+    # Install packages from Brewfile
+    brew bundle install --file homebrew/Brewfile
+fi
