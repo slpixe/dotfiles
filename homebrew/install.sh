@@ -12,16 +12,30 @@ if ! type "brew" >/dev/null 2>&1; then
 
     # Define shell-specific configuration file names
     case "$user_shell" in
-        bash)
-            shell_config_file=".bashrc"
-            ;;
-        zsh)
-            shell_config_file=".zshrc"
-            ;;
-        *)
-            echo "Unsupported shell: $user_shell"
-            exit 1
-            ;;
+      bash)
+          if [[ -r "$HOME/.bash_profile" ]]; then
+              shell_config_file=".bash_profile"
+          elif [[ -r "$HOME/.bashrc" ]]; then
+              shell_config_file=".bashrc"
+          else
+              echo "No suitable Bash configuration file found."
+              exit 1
+          fi
+          ;;
+      zsh)
+          if [[ -r "$HOME/.zshrc" ]]; then
+              shell_config_file=".zshrc"
+          elif [[ -r "$HOME/.zprofile" ]]; then
+              shell_config_file=".zprofile"
+          else
+              echo "No suitable Zsh configuration file found."
+              exit 1
+          fi
+          ;;
+      *)
+          echo "Unsupported shell: $user_shell"
+          exit 1
+          ;;
     esac
 
     # Add Homebrew to PATH
