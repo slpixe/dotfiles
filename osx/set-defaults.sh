@@ -20,6 +20,19 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #autohide the dock
 defaults write com.apple.dock "autohide" -bool "true"
 
+# fix issue with cmd+shift+a opening up a yellow terminal
+VALUE='<dict><key>enabled_context_menu</key><false/><key>enabled_services_menu</key><false/><key>presentation_modes</key><dict><key>ContextMenu</key><false/><key>ServicesMenu</key><false/></dict></dict>'
+
+defaults write pbs NSServicesStatus \
+  -dict-add \
+  'com.apple.Terminal - Open man Page in Terminal - openManPage' \
+  "$VALUE"
+defaults write pbs NSServicesStatus \
+  -dict-add \
+  'com.apple.Terminal - Search man Page Index in Terminal - searchManPages' \
+  "$VALUE"
+#end fix issue with cmd+shift+a
+
 # Disable press-and-hold for keys in favor of key repeat.
 defaults write -g ApplePressAndHoldEnabled -bool false
 
